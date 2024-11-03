@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher Encryption & Decryption</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="index.js" defer></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+<div class="bg-white p-6 rounded-lg shadow-lg w-96">
+    <h1 class="text-2xl font-bold text-center mb-6">Cipher Tool</h1>
+
+    <div class="mb-4">
+        <label for="cipher-select" class="block text-gray-700">Choose cipher:</label>
+        <select id="cipher-select" class="w-full mt-1 p-2 border rounded">
+            <option value="caesar">Caesar Cipher</option>
+        </select>
+    </div>
+
+    <div class="mb-4">
+        <label for="text-input-1" id="text-input-label-1" class="block text-gray-700">Text:</label>
+        <input type="text" id="text-input-1" class="w-full mt-1 p-2 border rounded" placeholder="Enter your text here">
+    </div>
+
+    <div class="mb-4">
+        <label for="text-input-2" id="text-input-label-2" class="block text-gray-700">Key:</label>
+        <input type="number" id="text-input-2" class="w-full mt-1 p-2 border rounded" placeholder="Enter shift value" min="1" max="25">
+    </div>
+
+    <div class="flex space-x-4 mb-4">
+        <button id="encryptBtn" class="transition-colors flex-1 bg-teal-700 text-white py-2 rounded hover:bg-teal-600">Encrypt</button>
+        <button id="decryptBtn" class="transition-colors flex-1 bg-teal-700 text-white py-2 rounded hover:bg-teal-600">Decrypt</button>
+    </div>
+
+    <div>
+        <h2 class="text-xl font-semibold mb-2">Result:</h2>
+        <p id="resultText" class="p-2 bg-gray-100 rounded text-gray-800"></p>
+    </div>
+
+</div>
+
+</body>
+</html>
