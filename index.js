@@ -1,8 +1,12 @@
 import { CaesarCipher } from './labs/lab01.js';
+import { PolybiusSquare } from './labs/lab02.js';
 
 let type = 'caesar'
 
 const cipherSelect = document.getElementById('cipher-select');
+const textInputWrapper1 = document.getElementById('text-input-wrapper-1');
+const textInputWrapper2 = document.getElementById('text-input-wrapper-2');
+const textInputWrapper3 = document.getElementById('text-input-wrapper-3');
 const textInput1 = document.getElementById('text-input-1');
 const textInput2 = document.getElementById('text-input-2');
 const textInput3 = document.getElementById('text-input-3');
@@ -13,18 +17,34 @@ const resultText = document.getElementById('resultText');
 const encryptBtn = document.getElementById('encryptBtn');
 const decryptBtn = document.getElementById('decryptBtn');
 
-cipherSelect.addEventListener('change', (value) => {
+const InitInputs = (value) => {
     hideInputs()
 
-    if (value.target.value === 'caesar') {
-        textInput1.classList.remove('hidden')
-        textInput2.classList.remove('hidden')
-        textLabel1.innerText = 'Value:'
+    if (value === 'caesar') {
+        textInputWrapper1?.classList?.remove('hidden')
+        textInputWrapper2?.classList?.remove('hidden')
+        textLabel1.innerText = 'Text:'
         textLabel2.innerText = 'Key:'
-        type = value.target.value
+        textInput1.type = 'text'
+        textInput2.type = 'number'
+        type = value
     }
 
-})
+    if (value === 'polybius') {
+        textInputWrapper1?.classList?.remove('hidden')
+        textInputWrapper2?.classList?.remove('hidden')
+        textInputWrapper3?.classList?.remove('hidden')
+        textLabel1.innerText = 'Text:'
+        textLabel2.innerText = 'Key param a:'
+        textLabel3.innerText = 'Key param b:'
+        textInput1.type = 'text'
+        textInput2.type = 'number'
+        textInput3.type = 'number'
+        type = value
+    }
+}
+
+cipherSelect.addEventListener('change', (value) => Init(value.target.value))
 
 encryptBtn.addEventListener('click', () => {
     const value1 = textInput1?.value;
@@ -33,6 +53,7 @@ encryptBtn.addEventListener('click', () => {
     let result;
 
     if (type === 'caesar') result = CaesarCipher(value1, parseInt(value2))
+    if (type === 'polybius') result = PolybiusSquare(value1, parseInt(value2), parseInt(value3))
 
     resultText.textContent = result;
 });
@@ -44,12 +65,19 @@ decryptBtn.addEventListener('click', () => {
     let result;
 
     if (type === 'caesar') result = CaesarCipher(value1, -parseInt(value2))
+    if (type === 'polybius') result = PolybiusSquare(value1, parseInt(value2), parseInt(value3))
 
     resultText.textContent = result;
 });
 
 const hideInputs = () => {
-    textInput1.classList.add('hidden')
-    textInput2.classList.add('hidden')
-    textInput3.classList.add('hidden')
+    if (textInput1) textInput1.value = ''
+    if (textInput2) textInput2.value = ''
+    if (textInput3) textInput3.value = ''
+    resultText.textContent = ''
+    textInputWrapper1?.classList?.add('hidden')
+    textInputWrapper2?.classList?.add('hidden')
+    textInputWrapper3?.classList?.add('hidden')
 }
+
+InitInputs('caesar')
