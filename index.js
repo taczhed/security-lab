@@ -1,6 +1,7 @@
 import { CaesarCipher } from './labs/lab01.js';
 import { PolybiusSquare } from './labs/lab02.js';
 import { VigenereCipher } from './labs/lab03.js';
+import { PlayfairCipher } from './labs/lab04.js';
 
 let type = 'caesar'
 
@@ -53,6 +54,16 @@ const InitInputs = (value) => {
         textInput2.type = 'text'
         type = value
     }
+
+    if (value === 'playfair') {
+        textInputWrapper1?.classList?.remove('hidden')
+        textInputWrapper2?.classList?.remove('hidden')
+        textLabel1.innerText = 'Text:'
+        textLabel2.innerText = 'Key (word):'
+        textInput1.type = 'text'
+        textInput2.type = 'text'
+        type = value;
+    }
 };
 
 cipherSelect.addEventListener('change', (value) => InitInputs(value.target.value))
@@ -66,6 +77,7 @@ encryptBtn.addEventListener('click', () => {
     if (type === 'caesar') result = CaesarCipher(value1, parseInt(value2))
     if (type === 'polybius') result = PolybiusSquare(value1, parseInt(value2), parseInt(value3))
     if (type === 'vigenere') result = VigenereCipher(value1, value2, 'encrypt')
+    if (type === 'playfair') result = PlayfairCipher(value1, value2, 'encrypt')
 
     resultText.textContent = result;
 });
@@ -79,6 +91,7 @@ decryptBtn.addEventListener('click', () => {
     if (type === 'caesar') result = CaesarCipher(value1, -parseInt(value2))
     if (type === 'polybius') result = PolybiusSquare(value1, parseInt(value2), parseInt(value3))
     if (type === 'vigenere') result = VigenereCipher(value1, value2, 'decrypt')
+    if (type === 'playfair') result = PlayfairCipher(value1, value2, 'decrypt')
 
     resultText.textContent = result;
 });
