@@ -1,5 +1,6 @@
 import { CaesarCipher } from './labs/lab01.js';
 import { PolybiusSquare } from './labs/lab02.js';
+import { VigenereCipher } from './labs/lab03.js';
 
 let type = 'caesar'
 
@@ -24,7 +25,7 @@ const InitInputs = (value) => {
         textInputWrapper1?.classList?.remove('hidden')
         textInputWrapper2?.classList?.remove('hidden')
         textLabel1.innerText = 'Text:'
-        textLabel2.innerText = 'Key:'
+        textLabel2.innerText = 'Key (number):'
         textInput1.type = 'text'
         textInput2.type = 'number'
         type = value
@@ -35,16 +36,26 @@ const InitInputs = (value) => {
         textInputWrapper2?.classList?.remove('hidden')
         textInputWrapper3?.classList?.remove('hidden')
         textLabel1.innerText = 'Text:'
-        textLabel2.innerText = 'Key param a:'
-        textLabel3.innerText = 'Key param b:'
+        textLabel2.innerText = 'Key param a (number):'
+        textLabel3.innerText = 'Key param b (number):'
         textInput1.type = 'text'
         textInput2.type = 'number'
         textInput3.type = 'number'
         type = value
     }
-}
 
-cipherSelect.addEventListener('change', (value) => Init(value.target.value))
+    if (value === 'vigenere') {
+        textInputWrapper1?.classList?.remove('hidden')
+        textInputWrapper2?.classList?.remove('hidden')
+        textLabel1.innerText = 'Text:'
+        textLabel2.innerText = 'Key (word):'
+        textInput1.type = 'text'
+        textInput2.type = 'text'
+        type = value
+    }
+};
+
+cipherSelect.addEventListener('change', (value) => InitInputs(value.target.value))
 
 encryptBtn.addEventListener('click', () => {
     const value1 = textInput1?.value;
@@ -54,6 +65,7 @@ encryptBtn.addEventListener('click', () => {
 
     if (type === 'caesar') result = CaesarCipher(value1, parseInt(value2))
     if (type === 'polybius') result = PolybiusSquare(value1, parseInt(value2), parseInt(value3))
+    if (type === 'vigenere') result = VigenereCipher(value1, value2, 'encrypt')
 
     resultText.textContent = result;
 });
@@ -66,6 +78,7 @@ decryptBtn.addEventListener('click', () => {
 
     if (type === 'caesar') result = CaesarCipher(value1, -parseInt(value2))
     if (type === 'polybius') result = PolybiusSquare(value1, parseInt(value2), parseInt(value3))
+    if (type === 'vigenere') result = VigenereCipher(value1, value2, 'decrypt')
 
     resultText.textContent = result;
 });
